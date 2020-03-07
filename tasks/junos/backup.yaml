@@ -1,0 +1,13 @@
+---
+- name: "junos.backup: fetch network configuration"
+  junos_config:
+    backup: "true"
+  register: r_junos_config
+
+
+- name: "junos.backup: save configuration to git_store"
+  copy:
+    src: "{{ r_junos_config.backup_path }}"
+    dest: "{{ git_store }}/{{ backup_manager_backup_path }}/running.cfg"
+    force: "yes"
+  notify: git_sync

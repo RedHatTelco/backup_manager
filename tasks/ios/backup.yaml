@@ -1,0 +1,22 @@
+---
+- name: "ios.backup: fetch network configuration"
+  ios_config:
+    backup: "true"
+  register: r_ios_config
+
+- name: "ios.backup: remove non configuration lines"
+  changed_when: false
+  lineinfile:
+    path: "{{ r_ios_config.backup_path }}"
+    regexp: "{{ item }}"
+    state: "absent"
+  loop:
+    - '^(Current|Building) configuration.*'
+    - '^\!.*'
+
+- name: "ios.backup: save configuration to git_store"
+  copy:
+    src: "{{ r_ios_config.backup_path }}"
+    dest: "{{ git_store }}/{{ backup_manager_backup_path }}/running.cfg"
+    force: "yes"
+  notify: git_sync

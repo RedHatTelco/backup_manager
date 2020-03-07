@@ -25,3 +25,8 @@ ansible-galaxy install -p roles nmake.backup_manager
     backup_manager_git_key_file: "~/.ssh/my_deploy_key"
 ```
 3) Run your playbook
+
+
+#### NOTE: You will need a more recent version of git (> 2.10.0) for the git push to work on Ansible Tower.
+
+
