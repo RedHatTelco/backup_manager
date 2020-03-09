@@ -60,9 +60,9 @@ def main():
             for git_add in result.get('files'):
                 module.run_command('git add %s' % git_add)
 
-            git_message = module.params['message'] or generate_message(files)
+            message = module.params['message'] or generate_message(files)
 
-            cmd = 'git commit -am "%s"' % git_message
+            cmd = 'git commit -am "%s"' % message
             if module.params['force'] is True:
                 cmd += ' --force'
             rc, out, err = module.run_command(cmd)
