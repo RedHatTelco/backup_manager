@@ -1,0 +1,13 @@
+---
+# Hackery until modules implement connection: 'httpapi'
+ansible_connection: "local"
+__backup_manager_provider:
+  auth_provider: "{{ lookup('ENV', 'F5_AUTH_PROVIDER') | default(omit) }}"
+  server: "{{ ansible_host | default(inventory_hostname) }}"
+  password: "{{ lookup('ENV', 'F5_PASSWORD') | default(omit) }}"
+  server_port: "{{ lookup('ENV', 'F5_SERVER_PORT') | default(omit) }}"
+  ssh_keyfile: "{{ lookup('ENV', 'F5_SSH_KEYFILE') | default(omit) }}"
+  timeout: "{{ lookup('ENV', 'F5_TIMEOUT') | default(omit) }}"
+  transport: "{{ lookup('ENV', 'F5_TRANSPORT') | default(omit) }}"
+  user: "{{ lookup('ENV', 'F5_USER') | default(omit) }}"
+  validate_certs: "{{ lookup('ENV', 'F5_VALIDATE_CERTS') | default(omit) }}"

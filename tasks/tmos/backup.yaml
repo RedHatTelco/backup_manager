@@ -1,0 +1,19 @@
+---
+- name: "tmos.backup: fetch ucs"
+  bigip_ucs_fetch:
+    provider: "{{ __backup_manager_provider }}"
+    hostname: "{{ ansible_host | default(inventory_hostname) }}"
+    backup: "true"
+    dest: "{{ git_store }}/{{ backup_manager_backup_path }}"
+  register: r_bigip_ucs_fetch
+
+- name: "tmos.backup: save ucs in git_store"
+  unarchive:
+    src: "{{ r_bigip_ucs_fetch.backup_file }}"
+    dest: "{{ git_store }}/{{ backup_manager_backup_path }}"
+  notify: git_sync
+
+- name: "tmos.backup: remove ucs file"
+  file:
+    path: "{{ r_bigip_ucs_fetch.backup_file }}"
+    state: "absent"

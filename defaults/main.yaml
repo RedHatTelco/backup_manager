@@ -13,6 +13,8 @@ backup_manager_git_repo: "test-github-push"
 backup_manager_git_branch: "master"
 backup_manager_git_username: "termlen0"
 backup_manager_git_key_file: "{{ secret_key }}"
+backup_manager_git_deploy_key: ""
+backup_manager_git_deploy_key_file: "{{ backup_manager_git_key_file }}"
 backup_manager_git_committer_email: "backup@ansible.com"
 backup_manager_git_committer_name: "backup"
 backup_manager_post_tasks: []

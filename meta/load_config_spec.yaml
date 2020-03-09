@@ -1,0 +1,122 @@
+---
+argument_spec:
+
+  backup_manager_pre_tasks:
+    description:
+      # yamllint disable-line rule:line-length
+      - "This setting provides the list of files containing tasks to run before the backup."
+    default: []
+    type: list
+
+  backup_manager_pre_roles:
+    description:
+      - "This setting provides the list of roles to run before the backup."
+    default: []
+    type: list
+
+  backup_manager_version:
+    description:
+      - "platform version"
+    type: str
+
+  backup_manager_os:
+    description:
+      # yamllint disable-line rule:line-length
+      - "This setting defines the Network Operating System of the target device."
+    choices:
+      - eos
+      - fortios
+      - ios
+      - junos
+      - nxos
+      - panos
+      - tmos
+    type: str
+
+  backup_manager_platform:
+    description:
+      - "This setting defines the device platform."
+    type: str
+
+  backup_manager_function:
+    description:
+      - "This setting defines the function: `backup` or `restore`."
+    choices:
+      - "backup"
+      - "restore"
+    type: str
+
+  backup_manager_backup_path:
+    description:
+      # yamllint disable-line rule:line-length
+      - "This setting defines the path to store the backup inside of git repository."
+    type: str
+
+  backup_manager_git_url:
+    description:
+      - "This setting defines the git server."
+    required: true
+    type: str
+
+  backup_manager_git_server:
+    description:
+      # yamllint disable-line rule:line-length
+      - "This setting defines the git repository to store device's configuration."
+    type: str
+
+  backup_manager_git_repo:
+    description:
+      # yamllint disable-line rule:line-length
+      - "This setting defines the git repository to store device's configuration."
+    required: true
+    type: str
+
+  backup_manager_git_branch:
+    description:
+      - "This setting defines the branch to store device's configuration."
+    type: str
+
+  backup_manager_git_username:
+    description:
+      # yamllint disable-line rule:line-length
+      - "This setting defines the username/team/namespace for the repository."
+    type: str
+
+  backup_manager_git_deploy_key:
+    description:
+      # yamllint disable-line rule:line-length
+      - "This setting defines the deploy key to use when pushing content to the repository in git server."
+    type: str
+
+  backup_manager_git_deploy_key_file:
+    description:
+      # yamllint disable-line rule:line-length
+      - "This setting defines the file containing the deploy keys with write access to the repository."
+    type: str
+
+  backup_manager_git_committer_email:
+    description:
+      # yamllint disable-line rule:line-length
+      - "This setting defines the email to use when commiting content to the repository."
+    default: "backup@ansible.com"
+    type: str
+
+  backup_manager_git_committer_name:
+    description:
+      - "This setting defines the name of the commiter."
+    default: "backup"
+    type: str
+
+  backup_manager_post_tasks:
+    description:
+      # yamllint disable-line rule:line-length
+      - "This setting provides the list of files containing tasks to run after the backup."
+    type: list
+
+  backup_manager_post_roles:
+    description:
+      - "This setting provides the list of roles to run after the backup."
+    type: list
+
+required_one_of:
+  - ['backup_manager_git_deploy_key', 'backup_manager_git_deploy_key_file']

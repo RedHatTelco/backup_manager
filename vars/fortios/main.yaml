@@ -1,0 +1,9 @@
+---
+# Hackery until modules implement connection: 'httpapi'
+ansible_connection: local
+__backup_manager_provider:
+  host: "{{ ansible_host | default(inventory_hostname) }}"
+  username: "{{ lookup('ENV', 'FORTIOS_USERNAME') | default(omit) }}"
+  password: "{{ lookup('ENV', 'FORTIOS_PASSWORD') | default(omit) }}"
+  https: "{{ lookup('ENV', 'FORTIOS_HTTPS') | default(omit) }}"
+  vdom: "{{ lookup('ENV', 'FORTIOS_VDOM') | default(omit) }}"

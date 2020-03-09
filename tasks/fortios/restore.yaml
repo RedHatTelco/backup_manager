@@ -1,5 +1,11 @@
 ---
 - name: "fortios.restore: load configuration"
+  environment:
+    PYTHONHTTPSVERIFY: 0
   fortios_config:
-    host: "{{ ansible_host }}"
+    host: "{{ __backup_manager_provider.host }}"
+    username: "{{ __backup_manager_provider.username }}"
+    password: "{{ __backup_manager_provider.password }}"
+    https: "{{ __backup_manager_provider.https }}"
+    vdom: "{{ __backup_manager_provider.vdom }}"
     src: "{{ git_store }}/{{ backup_manager_backup_path }}/running.cfg"

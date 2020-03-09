@@ -1,0 +1,20 @@
+---
+- name: "panos.restore: copy configuration file to remote device"
+  environment:
+    PYTHONHTTPSVERIFY: 0
+  panos_import:
+    ip_address: "{{ __backup_manager_provider.ip_address }}"
+    username: "{{ __backup_manager_provider.username }}"
+    password: "{{ __backup_manager_provider.password }}"
+    file: "{{ git_store }}/{{ backup_manager_backup_path }}/running.cfg"
+    category: "configuration"
+  register: r_panos_import
+
+- name: "panos.restore: load configuration file on remote device"
+  environment:
+    PYTHONHTTPSVERIFY: 0
+  panos_loadcfg:
+    ip_address: "{{ __backup_manager_provider.ip_address }}"
+    username: "{{ __backup_manager_provider.username }}"
+    password: "{{ __backup_manager_provider.password }}"
+    file: "{{ r_panos_import.filename }}"

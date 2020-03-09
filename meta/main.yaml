@@ -1,0 +1,26 @@
+---
+galaxy_info:
+  role_name: backup_manager
+  author: Victor da Costa
+  # yamllint disable-line rule:line-length
+  description: |
+    Backup Manager is an Ansible Role for network engineers and
+    network operators. It provides functions to `backup` and `restore`
+    configurations to/from `git` repository.
+  company: Ansible by Red Hat
+  license: GPLv3
+  min_ansible_version: 2.4.0.0
+  github_branch: master
+  platforms:
+    - name: GenericLinux
+      versions:
+        - all
+  galaxy_tags:
+    - networking
+    - eos
+    - fortios
+    - ios
+    - junos
+    - nxos
+    - panos
+dependencies: []

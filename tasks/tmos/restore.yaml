@@ -1,0 +1,12 @@
+---
+- name: "tmos.restore: generate ucs file"
+  archive:
+    path: "{{ git_store }}/{{ backup_manager_backup_path }}"
+    dest: "{{ git_store }}/{{ backup_manager_backup_path }}/restore.ucs"
+
+- name: "tmos.restore: ucs on remote device"
+  bigip_ucs:
+    provider: "{{ __backup_manager_provider }}"
+    hostname: "{{ ansible_host | default(inventory_hostname) }}"
+    ucs: "{{ git_store }}/{{ backup_manager_backup_path }}/restore.ucs"
+    state: installed

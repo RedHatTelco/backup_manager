@@ -1,0 +1,16 @@
+---
+- name: "panos.backup: fetch network configuration"
+  environment:
+    PYTHONHTTPSVERIFY: 0
+  panos_facts:
+    provider: "{{ __backup_manager_provider }}"
+    gather_subset:
+      - "config"
+  register: r_panos_facts
+
+- name: "panos.backup: save configuration to git_store"
+  copy:
+    content: "{{ r_panos_facts.ansible_net_config }}"
+    dest: "{{ git_store }}/{{ backup_manager_backup_path }}/running.cfg"
+    force: "yes"
+  notify: git_sync

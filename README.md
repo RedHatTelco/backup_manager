@@ -22,7 +22,8 @@ ansible-galaxy install -p roles nmake.backup_manager
   roles:
   - role: nmake.backup_manager
     function: backup
-    backup_manager_git_key_file: "~/.ssh/my_deploy_key"
+    backup_manager_git_deploy_key: "<vaulted deploy-key>"
+    backup_manager_git_deploy_key_file: "~/.ssh/my_deploy_key"
 ```
 3) Run your playbook
 

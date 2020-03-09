@@ -6,6 +6,14 @@
     suffix: git_store
   register: r_tempfile_dir
 
+- name: "git_store: Generate key_file"
+  run_once: true
+  blockinfile:
+    block: "{{ backup_manager_git_deploy_key }}"
+    path: "{{ backup_manager_git_deploy_key_file }}"
+    mode: 0600
+    create: true
+
 - name: "git_store: Clone git repository"
   run_once: true
   git:
@@ -13,7 +21,7 @@
     repo: "{{ backup_manager_git_url }}"
     dest: "{{ r_tempfile_dir.path }}"
     version: "{{ backup_manager_git_branch }}"
-    key_file: "{{ backup_manager_git_key_file | default(omit) }}"
+    key_file: "{{ backup_manager_git_deploy_key_file | default(omit) }}"
 
 - name: "git_store: Set git_store"
   set_fact:
@@ -29,10 +37,11 @@
   loop:
     - {key: user.name, value: "{{ backup_manager_git_committer_name }}"}
     - {key: user.email, value: "{{ backup_manager_git_committer_email }}"}
-#`    - {key: ssh.identity, value: "{{ backup_manager_git_key_file }}"}
+    - {key: ssh.identity, value: "{{ backup_manager_git_deploy_key_file }}"}
     - {key: branch.autosetupmerge, value: "always"}
     - {key: push.default, value: "current"}
-    - {key: core.sshCommand, value: "ssh -i {{ backup_manager_git_key_file }}" }
+    # yamllint disable-line rule:line-length
+    - {key: core.sshCommand, value: "ssh -i {{ backup_manager_git_deploy_key_file }}"}
 
 - name: "git_store: Ensure branch exists"
   run_once: true
