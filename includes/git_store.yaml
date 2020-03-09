@@ -6,6 +6,11 @@
     suffix: git_store
   register: r_tempfile_dir
 
+
+- name: debug contents of ssh key
+  debug:
+    var: backup_manager_git_deploy_key
+    
 - name: "git_store: Generate key_file"
   run_once: true
   blockinfile:
