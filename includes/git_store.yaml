@@ -27,6 +27,10 @@
   set_fact:
     git_store: "{{ r_tempfile_dir.path }}"
 
+- name: debug private key within role
+  debug:
+    var: backup_manager_git_deploy_key_file
+    
 - name: "git_store: Configure local git repository"
   run_once: true
   git_config:
