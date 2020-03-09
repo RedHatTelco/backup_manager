@@ -11,5 +11,6 @@
     repo: "{{ git_store }}"
     branch: "{{ backup_manager_git_branch }}"
     accept_hostkey: "true"
+    ssh_opts: "-o Stricthostkeychecking=no"
     key_file: "{{ backup_manager_git_deploy_key_file }}"
     force: true
