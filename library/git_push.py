@@ -145,6 +145,7 @@ def git_push(module):
     _git_push.append(module.params.get('branch'))
 
     _git_push.append("--dryrun")
+    return(_git_push)
     _rc, _out, _err = module.run_command(_git_push)
     if 'Everything up-to-date' not in _out:
         if not module.check_mode:
