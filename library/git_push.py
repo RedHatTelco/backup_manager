@@ -110,7 +110,7 @@ def check_git_version(module):
 def setenv_git_ssh(module):
 
     key_file = module.params.get('key_file')
-    ssh_opts = module.params.get('ssh_ops')
+    ssh_opts = module.params.get('ssh_opts')
     accept_hostkey = module.params.get('accept_hostkey')
 
     if accept_hostkey:
@@ -173,7 +173,8 @@ def main():
         key_file=dict(type='path', required=False),
         accept_hostkey=dict(type='bool', required=False),
         executable=dict(type='path', required=False),
-        force=dict(type='bool', required=False)
+        force=dict(type='bool', required=False),
+        ssh_opts=dict(type='str', required=False)
     )
 
     module = AnsibleModule(argument_spec=argument_spec, supports_check_mode=True)
