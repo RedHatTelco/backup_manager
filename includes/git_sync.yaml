@@ -3,7 +3,7 @@
   run_once: true
   git_commit:
     repo: "{{ git_store }}"
-    message: "Backup Manager"
+    git_message: "Backup Manager"
 
 - name: "git_sync: push local to remote"
   run_once: true

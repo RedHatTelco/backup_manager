@@ -28,7 +28,7 @@ def main():
     argument_spec = dict(
         repo=dict(type='path', required=True),
         pathspec=dict(default='*'),
-        message=dict(),
+        git_message=dict(),
         force=dict(type='bool')
     )
 
@@ -60,9 +60,9 @@ def main():
             for git_add in result.get('files'):
                 module.run_command('git add %s' % git_add)
 
-            message = module.params['message'] or generate_message(files)
+            git_message = module.params['git_message'] or generate_message(files)
 
-            cmd = 'git commit -am "%s"' % message
+            cmd = 'git commit -am "%s"' % git_message
             if module.params['force'] is True:
                 cmd += ' --force'
             rc, out, err = module.run_command(cmd)
