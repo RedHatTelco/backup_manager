@@ -133,8 +133,6 @@ def setenv_git_ssh(module):
     else:
         os.environ['GIT_SSH_COMMAND'] = ssh_opts
 
-    return os.environ['GIT_SSH_COMMAND']
-
 def git_push(module):
     _git_push = []
     _git_push.append(git(module))
@@ -147,7 +145,6 @@ def git_push(module):
     _git_push.append(module.params.get('branch'))
 
     _git_push.append("--dryrun")
-    return(_git_push)
     _rc, _out, _err = module.run_command(_git_push)
     if 'Everything up-to-date' not in _out:
         if not module.check_mode:
@@ -186,8 +183,8 @@ def main():
 
     check_git_version(module)
     chdir_repo(module)
-    result['changed'] = setenv_git_ssh(module)
-    #result['changed'] = git_push(module)
+    #setenv_git_ssh(module)
+    result['changed'] = git_push(module)
     module.exit_json(**result)
 
 if __name__ == '__main__':
