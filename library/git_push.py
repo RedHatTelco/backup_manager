@@ -133,6 +133,8 @@ def setenv_git_ssh(module):
     else:
         os.environ['GIT_SSH_COMMAND'] = ssh_opts
 
+    return os.environ['GIT_SSH_COMMAND']
+
 def git_push(module):
     _git_push = []
     _git_push.append(git(module))
@@ -184,8 +186,8 @@ def main():
 
     check_git_version(module)
     chdir_repo(module)
-    setenv_git_ssh(module)
-    result['changed'] = git_push(module)
+    result['changed'] = setenv_git_ssh(module)
+    #result['changed'] = git_push(module)
     module.exit_json(**result)
 
 if __name__ == '__main__':
